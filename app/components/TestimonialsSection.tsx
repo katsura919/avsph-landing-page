@@ -1,14 +1,11 @@
 "use client";
 
-import { useRef, useEffect, useState } from "react";
-import { motion, useAnimationControls } from "motion/react";
+import { useState } from "react";
 import { Quote } from "lucide-react";
 
 export default function TestimonialsSection() {
     const [isPausedRow1, setIsPausedRow1] = useState(false);
     const [isPausedRow2, setIsPausedRow2] = useState(false);
-    const controlsRow1 = useAnimationControls();
-    const controlsRow2 = useAnimationControls();
 
     // First row testimonials
     const testimonialsRow1 = [
@@ -66,67 +63,6 @@ export default function TestimonialsSection() {
         },
     ];
 
-    // Start animations on mount
-    useEffect(() => {
-        controlsRow1.start({
-            x: [0, -1400],
-            transition: {
-                x: {
-                    duration: 30,
-                    repeat: Infinity,
-                    ease: "linear",
-                },
-            },
-        });
-
-        controlsRow2.start({
-            x: [-1400, 0],
-            transition: {
-                x: {
-                    duration: 30,
-                    repeat: Infinity,
-                    ease: "linear",
-                },
-            },
-        });
-    }, [controlsRow1, controlsRow2]);
-
-    // Handle pause/resume for Row 1
-    useEffect(() => {
-        if (isPausedRow1) {
-            controlsRow1.stop();
-        } else {
-            controlsRow1.start({
-                x: [0, -1400],
-                transition: {
-                    x: {
-                        duration: 30,
-                        repeat: Infinity,
-                        ease: "linear",
-                    },
-                },
-            });
-        }
-    }, [isPausedRow1, controlsRow1]);
-
-    // Handle pause/resume for Row 2
-    useEffect(() => {
-        if (isPausedRow2) {
-            controlsRow2.stop();
-        } else {
-            controlsRow2.start({
-                x: [-1400, 0],
-                transition: {
-                    x: {
-                        duration: 30,
-                        repeat: Infinity,
-                        ease: "linear",
-                    },
-                },
-            });
-        }
-    }, [isPausedRow2, controlsRow2]);
-
     const TestimonialCard = ({ testimonial }: { testimonial: typeof testimonialsRow1[0] }) => (
         <div
             className="flex-shrink-0 w-[350px] p-6 rounded-xl mx-3"
@@ -177,6 +113,31 @@ export default function TestimonialsSection() {
 
     return (
         <section id="testimonials" className="section overflow-hidden" style={{ background: "var(--background)" }}>
+            <style jsx>{`
+        @keyframes scroll-left {
+          0% {
+            transform: translateX(0);
+          }
+          100% {
+            transform: translateX(-50%);
+          }
+        }
+        @keyframes scroll-right {
+          0% {
+            transform: translateX(-50%);
+          }
+          100% {
+            transform: translateX(0);
+          }
+        }
+        .marquee-left {
+          animation: scroll-left 35s linear infinite;
+        }
+        .marquee-right {
+          animation: scroll-right 35s linear infinite;
+        }
+      `}</style>
+
             <div className="container">
                 <div className="text-center mb-16">
                     <span
@@ -207,14 +168,16 @@ export default function TestimonialsSection() {
                     onMouseEnter={() => setIsPausedRow1(true)}
                     onMouseLeave={() => setIsPausedRow1(false)}
                 >
-                    <motion.div
-                        className="flex"
-                        animate={controlsRow1}
+                    <div
+                        className="flex marquee-left"
+                        style={{
+                            animationPlayState: isPausedRow1 ? "paused" : "running",
+                        }}
                     >
                         {row1Items.map((testimonial, index) => (
                             <TestimonialCard key={index} testimonial={testimonial} />
                         ))}
-                    </motion.div>
+                    </div>
                 </div>
 
                 {/* Row 2 - Scrolls Right */}
@@ -227,14 +190,16 @@ export default function TestimonialsSection() {
                     onMouseEnter={() => setIsPausedRow2(true)}
                     onMouseLeave={() => setIsPausedRow2(false)}
                 >
-                    <motion.div
-                        className="flex"
-                        animate={controlsRow2}
+                    <div
+                        className="flex marquee-right"
+                        style={{
+                            animationPlayState: isPausedRow2 ? "paused" : "running",
+                        }}
                     >
                         {row2Items.map((testimonial, index) => (
                             <TestimonialCard key={index} testimonial={testimonial} />
                         ))}
-                    </motion.div>
+                    </div>
                 </div>
             </div>
 
