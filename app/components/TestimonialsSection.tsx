@@ -1,48 +1,114 @@
 "use client";
 
-import { useState } from "react";
-import { Star, Quote } from "lucide-react";
+import { Quote } from "lucide-react";
 
 export default function TestimonialsSection() {
-    const testimonials = [
+    // First row testimonials (scrolls left to right)
+    const testimonialsRow1 = [
         {
-            quote:
-                "Advanced Virtual Staff has been a game-changer for my business. My VA handles all my admin tasks flawlessly, giving me back 20+ hours every week to focus on growth.",
+            quote: "Advanced Virtual Staff has been a game-changer for my business. My VA handles all my admin tasks flawlessly, giving me back 20+ hours every week.",
             author: "Michael Chen",
-            role: "CEO, TechStart Solutions",
+            role: "CEO & Co Founder at TechStart",
             avatar: "MC",
-            rating: 5,
         },
         {
-            quote:
-                "I was skeptical about hiring a virtual assistant, but AVSPH made the process seamless. The quality of talent and ongoing support exceeded my expectations.",
+            quote: "I was skeptical about hiring a virtual assistant, but AVSPH made the process seamless. The quality of talent exceeded my expectations.",
             author: "Sarah Johnson",
-            role: "Founder, Digital Marketing Pro",
+            role: "Founder at Digital Marketing Pro",
             avatar: "SJ",
-            rating: 5,
         },
         {
-            quote:
-                "The daily reports and hourly monitoring give me complete peace of mind. I know exactly what's being done and the ROI is incredible.",
+            quote: "The daily reports and hourly monitoring give me complete peace of mind. I know exactly what's being done and the ROI is incredible.",
             author: "David Martinez",
-            role: "Operations Manager, E-Commerce Plus",
+            role: "Operations Manager at E-Commerce Plus",
             avatar: "DM",
-            rating: 5,
         },
         {
-            quote:
-                "We've been working with AVSPH for over 2 years now. Their team has become an integral part of our operations. Highly recommended!",
+            quote: "Top-notch quality—easy to set up and performs as promised. The support team was incredibly responsive and attentive to our needs.",
             author: "Emily Watson",
-            role: "Director, Consulting Group Inc",
+            role: "Director at Consulting Group Inc",
             avatar: "EW",
-            rating: 5,
         },
     ];
 
-    const [activeIndex, setActiveIndex] = useState(0);
+    // Second row testimonials (scrolls right to left)
+    const testimonialsRow2 = [
+        {
+            quote: "Outstanding service—well-crafted, user-friendly, and exactly what I expected. The team went above and beyond to help us succeed.",
+            author: "James Wilson",
+            role: "CEO & Co Founder at Growth Labs",
+            avatar: "JW",
+        },
+        {
+            quote: "Impressive product—high quality, simple to use, and exactly as promised. Customer service was superb and very responsive.",
+            author: "Anika Patel",
+            role: "CEO & Co Founder at Zendesk",
+            avatar: "AP",
+        },
+        {
+            quote: "We've been working with AVSPH for over 2 years now. Their team has become an integral part of our operations. Highly recommended!",
+            author: "Robert Kim",
+            role: "Product Manager at Orbit",
+            avatar: "RK",
+        },
+        {
+            quote: "Great product—reliable, easy to set up, just as described. Service was excellent and ensured a smooth experience from day one.",
+            author: "Lisa Thompson",
+            role: "CEO & Co Founder at ABC Corp",
+            avatar: "LT",
+        },
+    ];
+
+    const TestimonialCard = ({ testimonial }: { testimonial: typeof testimonialsRow1[0] }) => (
+        <div
+            className="flex-shrink-0 w-[350px] p-6 rounded-xl mx-3"
+            style={{
+                background: "var(--card)",
+                border: "1px solid var(--border)",
+            }}
+        >
+            <Quote
+                className="w-8 h-8 mb-4"
+                style={{ color: "var(--border)" }}
+                fill="var(--border)"
+            />
+            <p
+                className="text-sm leading-relaxed mb-6"
+                style={{ color: "var(--foreground-light)" }}
+            >
+                {testimonial.quote}
+            </p>
+            <div className="flex items-center gap-3">
+                <div
+                    className="w-10 h-10 rounded-full flex items-center justify-center text-sm font-bold"
+                    style={{
+                        background: "var(--secondary)",
+                        color: "var(--primary)",
+                    }}
+                >
+                    {testimonial.avatar}
+                </div>
+                <div>
+                    <p
+                        className="font-semibold text-sm"
+                        style={{ color: "var(--primary)" }}
+                    >
+                        {testimonial.author}
+                    </p>
+                    <p className="text-xs" style={{ color: "var(--muted)" }}>
+                        {testimonial.role}
+                    </p>
+                </div>
+            </div>
+        </div>
+    );
+
+    // Duplicate items for seamless loop
+    const row1Items = [...testimonialsRow1, ...testimonialsRow1, ...testimonialsRow1];
+    const row2Items = [...testimonialsRow2, ...testimonialsRow2, ...testimonialsRow2];
 
     return (
-        <section id="testimonials" className="section" style={{ background: "var(--background)" }}>
+        <section id="testimonials" className="section overflow-hidden" style={{ background: "var(--background)" }}>
             <div className="container">
                 <div className="text-center mb-16">
                     <span
@@ -52,87 +118,50 @@ export default function TestimonialsSection() {
                         Testimonials
                     </span>
                     <h2 className="section-title">
-                        Don&apos;t Take Our Word, <span className="gradient-text">Take Theirs</span>
+                        Words of Praise From <span className="gradient-text">Our Clients</span>
                     </h2>
                     <p className="section-subtitle">
                         See what our clients have to say about their experience working with
                         Advanced Virtual Staff.
                     </p>
                 </div>
+            </div>
 
-                {/* Featured Testimonial */}
-                <div className="max-w-4xl mx-auto mb-12">
-                    <div
-                        className="relative p-8 md:p-12 rounded-2xl"
-                        style={{
-                            background: "linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%)",
-                        }}
-                    >
-                        {/* Quote Icon */}
-                        <Quote
-                            className="absolute top-8 left-8 w-12 h-12 opacity-20 text-white"
-                            fill="white"
-                        />
-
-                        <div className="relative z-10">
-                            <div className="flex gap-1 mb-6">
-                                {[...Array(testimonials[activeIndex].rating)].map((_, i) => (
-                                    <Star
-                                        key={i}
-                                        className="w-6 h-6"
-                                        fill="#F5A623"
-                                        stroke="#F5A623"
-                                    />
-                                ))}
-                            </div>
-
-                            <blockquote className="text-xl md:text-2xl text-white mb-8 leading-relaxed">
-                                &ldquo;{testimonials[activeIndex].quote}&rdquo;
-                            </blockquote>
-
-                            <div className="flex items-center gap-4">
-                                <div
-                                    className="w-14 h-14 rounded-full flex items-center justify-center text-lg font-bold"
-                                    style={{
-                                        background: "var(--secondary)",
-                                        color: "var(--primary)",
-                                    }}
-                                >
-                                    {testimonials[activeIndex].avatar}
-                                </div>
-                                <div>
-                                    <p className="font-semibold text-white">
-                                        {testimonials[activeIndex].author}
-                                    </p>
-                                    <p className="text-white/70 text-sm">
-                                        {testimonials[activeIndex].role}
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
+            {/* Marquee Container */}
+            <div className="space-y-6">
+                {/* Row 1 - Scrolls Left to Right */}
+                <div
+                    className="relative overflow-hidden group"
+                    style={{
+                        maskImage: "linear-gradient(to right, transparent, black 10%, black 90%, transparent)",
+                        WebkitMaskImage: "linear-gradient(to right, transparent, black 10%, black 90%, transparent)",
+                    }}
+                >
+                    <div className="flex animate-marquee-left group-hover:[animation-play-state:paused]">
+                        {row1Items.map((testimonial, index) => (
+                            <TestimonialCard key={index} testimonial={testimonial} />
+                        ))}
                     </div>
                 </div>
 
-                {/* Testimonial Navigation */}
-                <div className="flex justify-center gap-4 mb-16">
-                    {testimonials.map((testimonial, index) => (
-                        <button
-                            key={index}
-                            onClick={() => setActiveIndex(index)}
-                            className={`w-12 h-12 rounded-full flex items-center justify-center text-sm font-bold transition-all ${activeIndex === index ? "scale-110" : "opacity-60 hover:opacity-100"
-                                }`}
-                            style={{
-                                background:
-                                    activeIndex === index ? "var(--secondary)" : "var(--border)",
-                                color: activeIndex === index ? "var(--primary)" : "var(--muted)",
-                            }}
-                        >
-                            {testimonial.avatar}
-                        </button>
-                    ))}
+                {/* Row 2 - Scrolls Right to Left */}
+                <div
+                    className="relative overflow-hidden group"
+                    style={{
+                        maskImage: "linear-gradient(to right, transparent, black 10%, black 90%, transparent)",
+                        WebkitMaskImage: "linear-gradient(to right, transparent, black 10%, black 90%, transparent)",
+                    }}
+                >
+                    <div className="flex animate-marquee-right group-hover:[animation-play-state:paused]">
+                        {row2Items.map((testimonial, index) => (
+                            <TestimonialCard key={index} testimonial={testimonial} />
+                        ))}
+                    </div>
                 </div>
+            </div>
 
-                {/* Client Logos */}
+            {/* Client Logos */}
+            <div className="container mt-16">
                 <div className="text-center">
                     <p
                         className="text-sm font-medium uppercase tracking-wider mb-8"

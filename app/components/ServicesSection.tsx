@@ -86,13 +86,15 @@ export default function ServicesSection() {
                         <div
                             key={index}
                             className="card group cursor-pointer"
-                            style={{ background: "var(--card)" }}
+                            style={{
+                                background: `${service.color}15`,
+                                borderColor: `${service.color}30`,
+                            }}
                         >
                             <div
                                 className="w-14 h-14 rounded-xl flex items-center justify-center mb-4 transition-transform group-hover:scale-110"
-                                style={{
-                                    background: `${service.color}15`,
-                                    color: service.color,
+                                style={{                                
+                                    color: service.color,                                 
                                 }}
                             >
                                 {service.icon}
