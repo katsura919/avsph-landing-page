@@ -1,9 +1,16 @@
 "use client";
 
+import { useRef, useEffect, useState } from "react";
+import { motion, useAnimationControls } from "motion/react";
 import { Quote } from "lucide-react";
 
 export default function TestimonialsSection() {
-    // First row testimonials (scrolls left to right)
+    const [isPausedRow1, setIsPausedRow1] = useState(false);
+    const [isPausedRow2, setIsPausedRow2] = useState(false);
+    const controlsRow1 = useAnimationControls();
+    const controlsRow2 = useAnimationControls();
+
+    // First row testimonials
     const testimonialsRow1 = [
         {
             quote: "Advanced Virtual Staff has been a game-changer for my business. My VA handles all my admin tasks flawlessly, giving me back 20+ hours every week.",
@@ -31,7 +38,7 @@ export default function TestimonialsSection() {
         },
     ];
 
-    // Second row testimonials (scrolls right to left)
+    // Second row testimonials
     const testimonialsRow2 = [
         {
             quote: "Outstanding service—well-crafted, user-friendly, and exactly what I expected. The team went above and beyond to help us succeed.",
@@ -58,6 +65,67 @@ export default function TestimonialsSection() {
             avatar: "LT",
         },
     ];
+
+    // Start animations on mount
+    useEffect(() => {
+        controlsRow1.start({
+            x: [0, -1400],
+            transition: {
+                x: {
+                    duration: 30,
+                    repeat: Infinity,
+                    ease: "linear",
+                },
+            },
+        });
+
+        controlsRow2.start({
+            x: [-1400, 0],
+            transition: {
+                x: {
+                    duration: 30,
+                    repeat: Infinity,
+                    ease: "linear",
+                },
+            },
+        });
+    }, [controlsRow1, controlsRow2]);
+
+    // Handle pause/resume for Row 1
+    useEffect(() => {
+        if (isPausedRow1) {
+            controlsRow1.stop();
+        } else {
+            controlsRow1.start({
+                x: [0, -1400],
+                transition: {
+                    x: {
+                        duration: 30,
+                        repeat: Infinity,
+                        ease: "linear",
+                    },
+                },
+            });
+        }
+    }, [isPausedRow1, controlsRow1]);
+
+    // Handle pause/resume for Row 2
+    useEffect(() => {
+        if (isPausedRow2) {
+            controlsRow2.stop();
+        } else {
+            controlsRow2.start({
+                x: [-1400, 0],
+                transition: {
+                    x: {
+                        duration: 30,
+                        repeat: Infinity,
+                        ease: "linear",
+                    },
+                },
+            });
+        }
+    }, [isPausedRow2, controlsRow2]);
 
     const TestimonialCard = ({ testimonial }: { testimonial: typeof testimonialsRow1[0] }) => (
         <div
@@ -104,8 +172,8 @@ export default function TestimonialsSection() {
     );
 
     // Duplicate items for seamless loop
-    const row1Items = [...testimonialsRow1, ...testimonialsRow1, ...testimonialsRow1];
-    const row2Items = [...testimonialsRow2, ...testimonialsRow2, ...testimonialsRow2];
+    const row1Items = [...testimonialsRow1, ...testimonialsRow1];
+    const row2Items = [...testimonialsRow2, ...testimonialsRow2];
 
     return (
         <section id="testimonials" className="section overflow-hidden" style={{ background: "var(--background)" }}>
@@ -129,34 +197,44 @@ export default function TestimonialsSection() {
 
             {/* Marquee Container */}
             <div className="space-y-6">
-                {/* Row 1 - Scrolls Left to Right */}
+                {/* Row 1 - Scrolls Left */}
                 <div
-                    className="relative overflow-hidden group"
+                    className="relative overflow-hidden"
                     style={{
                         maskImage: "linear-gradient(to right, transparent, black 10%, black 90%, transparent)",
                         WebkitMaskImage: "linear-gradient(to right, transparent, black 10%, black 90%, transparent)",
                     }}
+                    onMouseEnter={() => setIsPausedRow1(true)}
+                    onMouseLeave={() => setIsPausedRow1(false)}
                 >
-                    <div className="flex animate-marquee-left group-hover:[animation-play-state:paused]">
+                    <motion.div
+                        className="flex"
+                        animate={controlsRow1}
+                    >
                         {row1Items.map((testimonial, index) => (
                             <TestimonialCard key={index} testimonial={testimonial} />
                         ))}
-                    </div>
+                    </motion.div>
                 </div>
 
-                {/* Row 2 - Scrolls Right to Left */}
+                {/* Row 2 - Scrolls Right */}
                 <div
-                    className="relative overflow-hidden group"
+                    className="relative overflow-hidden"
                     style={{
                         maskImage: "linear-gradient(to right, transparent, black 10%, black 90%, transparent)",
                         WebkitMaskImage: "linear-gradient(to right, transparent, black 10%, black 90%, transparent)",
                     }}
+                    onMouseEnter={() => setIsPausedRow2(true)}
+                    onMouseLeave={() => setIsPausedRow2(false)}
                 >
-                    <div className="flex animate-marquee-right group-hover:[animation-play-state:paused]">
+                    <motion.div
+                        className="flex"
+                        animate={controlsRow2}
+                    >
                         {row2Items.map((testimonial, index) => (
                             <TestimonialCard key={index} testimonial={testimonial} />
                         ))}
-                    </div>
+                    </motion.div>
                 </div>
             </div>
 
