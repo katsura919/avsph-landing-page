@@ -1,3 +1,5 @@
+import { MessageSquare, Users, CheckCircle, ArrowRight } from "lucide-react";
+
 export default function HowItWorksSection() {
     const steps = [
         {
@@ -5,37 +7,21 @@ export default function HowItWorksSection() {
             title: "Tell Us Your Needs",
             description:
                 "Share your requirements with us. What tasks do you need help with? What skills are you looking for? We'll understand your business and find the perfect match.",
-            icon: (
-                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
-                </svg>
-            ),
+            icon: <MessageSquare className="w-8 h-8" />,
         },
         {
             number: "02",
             title: "We Match You With Talent",
             description:
                 "Our team rigorously screens candidates from our top 1% talent pool. We present you with the best matches based on skills, experience, and cultural fit.",
-            icon: (
-                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
-                    <circle cx="9" cy="7" r="4" />
-                    <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
-                    <path d="M16 3.13a4 4 0 0 1 0 7.75" />
-                </svg>
-            ),
+            icon: <Users className="w-8 h-8" />,
         },
         {
             number: "03",
             title: "Start Working Together",
             description:
                 "Once you approve, your virtual assistant starts immediately. We provide ongoing support, monitoring, and daily reports to ensure smooth collaboration.",
-            icon: (
-                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
-                    <polyline points="22 4 12 14.01 9 11.01" />
-                </svg>
-            ),
+            icon: <CheckCircle className="w-8 h-8" />,
         },
     ];
 
@@ -128,9 +114,7 @@ export default function HowItWorksSection() {
                         className="btn-primary inline-flex items-center gap-2"
                     >
                         Start Your Journey
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                            <path d="M5 12h14M12 5l7 7-7 7" />
-                        </svg>
+                        <ArrowRight className="w-5 h-5" />
                     </a>
                 </div>
             </div>

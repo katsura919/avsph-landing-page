@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { CheckCircle, ArrowRight, Phone } from "lucide-react";
 
 export default function CTASection() {
     const [formData, setFormData] = useState({
@@ -64,20 +65,12 @@ export default function CTASection() {
                                 "Start with a risk-free trial",
                             ].map((item, index) => (
                                 <div key={index} className="flex items-center gap-3">
-                                    <svg
-                                        width="24"
-                                        height="24"
-                                        viewBox="0 0 24 24"
-                                        fill="none"
+                                    <span
+                                        className="flex-shrink-0 w-6 h-6 rounded-full flex items-center justify-center"
+                                        style={{ background: "var(--accent)" }}
                                     >
-                                        <circle cx="12" cy="12" r="10" fill="#F5A623" />
-                                        <polyline
-                                            points="8 12 11 15 16 9"
-                                            stroke="white"
-                                            strokeWidth="2"
-                                            fill="none"
-                                        />
-                                    </svg>
+                                        <CheckCircle className="w-4 h-4 text-white" />
+                                    </span>
                                     <span className="text-white/90">{item}</span>
                                 </div>
                             ))}
@@ -88,8 +81,9 @@ export default function CTASection() {
                                 <p className="text-white/60 text-sm">Call us directly</p>
                                 <a
                                     href="tel:+13183929582"
-                                    className="text-2xl font-bold text-white hover:text-[var(--accent)] transition-colors"
+                                    className="flex items-center gap-2 text-2xl font-bold text-white hover:text-[var(--accent)] transition-colors"
                                 >
+                                    <Phone className="w-6 h-6" />
                                     +1 (318) 392-9582
                                 </a>
                             </div>
@@ -223,16 +217,7 @@ export default function CTASection() {
                                 className="w-full btn-primary py-4 text-lg"
                             >
                                 Book My Free Consultation
-                                <svg
-                                    width="20"
-                                    height="20"
-                                    viewBox="0 0 24 24"
-                                    fill="none"
-                                    stroke="currentColor"
-                                    strokeWidth="2"
-                                >
-                                    <path d="M5 12h14M12 5l7 7-7 7" />
-                                </svg>
+                                <ArrowRight className="w-5 h-5" />
                             </button>
 
                             <p className="text-center text-sm" style={{ color: "var(--muted)" }}>

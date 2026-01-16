@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import { Menu, X, Phone } from "lucide-react";
 
 export default function Header() {
     const [isScrolled, setIsScrolled] = useState(false);
@@ -82,7 +83,8 @@ export default function Header() {
 
                 {/* CTA Button */}
                 <div className="hidden lg:flex items-center gap-4">
-                    <Link href="tel:+13183929582" className="text-sm font-medium" style={{ color: "var(--muted)" }}>
+                    <Link href="tel:+13183929582" className="flex items-center gap-2 text-sm font-medium" style={{ color: "var(--muted)" }}>
+                        <Phone className="w-4 h-4" />
                         +1 (318) 392-9582
                     </Link>
                     <Link href="#contact" className="btn-primary">
@@ -96,29 +98,11 @@ export default function Header() {
                     onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
                     aria-label="Toggle menu"
                 >
-                    <svg
-                        width="24"
-                        height="24"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                    >
-                        {isMobileMenuOpen ? (
-                            <>
-                                <line x1="18" y1="6" x2="6" y2="18" />
-                                <line x1="6" y1="6" x2="18" y2="18" />
-                            </>
-                        ) : (
-                            <>
-                                <line x1="3" y1="6" x2="21" y2="6" />
-                                <line x1="3" y1="12" x2="21" y2="12" />
-                                <line x1="3" y1="18" x2="21" y2="18" />
-                            </>
-                        )}
-                    </svg>
+                    {isMobileMenuOpen ? (
+                        <X className="w-6 h-6" />
+                    ) : (
+                        <Menu className="w-6 h-6" />
+                    )}
                 </button>
             </div>
 

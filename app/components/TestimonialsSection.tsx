@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { Star, Quote } from "lucide-react";
 
 export default function TestimonialsSection() {
     const testimonials = [
@@ -68,26 +69,20 @@ export default function TestimonialsSection() {
                         }}
                     >
                         {/* Quote Icon */}
-                        <svg
-                            className="absolute top-8 left-8 w-12 h-12 opacity-20"
-                            viewBox="0 0 24 24"
+                        <Quote
+                            className="absolute top-8 left-8 w-12 h-12 opacity-20 text-white"
                             fill="white"
-                        >
-                            <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z" />
-                        </svg>
+                        />
 
                         <div className="relative z-10">
                             <div className="flex gap-1 mb-6">
                                 {[...Array(testimonials[activeIndex].rating)].map((_, i) => (
-                                    <svg
+                                    <Star
                                         key={i}
-                                        width="24"
-                                        height="24"
-                                        viewBox="0 0 24 24"
+                                        className="w-6 h-6"
                                         fill="#F5A623"
-                                    >
-                                        <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
-                                    </svg>
+                                        stroke="#F5A623"
+                                    />
                                 ))}
                             </div>
 

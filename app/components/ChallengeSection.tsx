@@ -1,34 +1,19 @@
+import { Clock, Users, DollarSign, CheckCircle } from "lucide-react";
+
 export default function ChallengeSection() {
     const challenges = [
         {
-            icon: (
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                    <circle cx="12" cy="12" r="10" />
-                    <polyline points="12 6 12 12 16 14" />
-                </svg>
-            ),
+            icon: <Clock className="w-6 h-6" />,
             title: "Spending too much time on repetitive tasks?",
             description: "Free up 20+ hours per week by delegating admin work, data entry, and routine operations.",
         },
         {
-            icon: (
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
-                    <circle cx="9" cy="7" r="4" />
-                    <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
-                    <path d="M16 3.13a4 4 0 0 1 0 7.75" />
-                </svg>
-            ),
+            icon: <Users className="w-6 h-6" />,
             title: "Struggling to find reliable talent?",
             description: "Access our pre-vetted pool of exceptional virtual assistants—only the top 1% make the cut.",
         },
         {
-            icon: (
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                    <line x1="12" y1="1" x2="12" y2="23" />
-                    <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
-                </svg>
-            ),
+            icon: <DollarSign className="w-6 h-6" />,
             title: "Worried about the cost of hiring?",
             description: "Save up to 70% compared to local hires with our affordable hourly rates and zero overhead costs.",
         },
@@ -97,10 +82,7 @@ export default function ChallengeSection() {
                                     className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium mb-6"
                                     style={{ background: "rgba(255, 255, 255, 0.15)" }}
                                 >
-                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                                        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
-                                        <polyline points="22 4 12 14.01 9 11.01" />
-                                    </svg>
+                                    <CheckCircle className="w-4 h-4" />
                                     The Solution
                                 </div>
 
@@ -121,21 +103,12 @@ export default function ChallengeSection() {
                                         "Flexible, no-contract arrangements",
                                     ].map((item, index) => (
                                         <li key={index} className="flex items-center gap-3 text-white/90">
-                                            <svg
-                                                width="20"
-                                                height="20"
-                                                viewBox="0 0 24 24"
-                                                fill="none"
-                                                className="flex-shrink-0"
+                                            <span
+                                                className="flex-shrink-0 w-5 h-5 rounded-full flex items-center justify-center"
+                                                style={{ background: "var(--accent)" }}
                                             >
-                                                <circle cx="12" cy="12" r="10" fill="#F5A623" />
-                                                <polyline
-                                                    points="8 12 11 15 16 9"
-                                                    stroke="white"
-                                                    strokeWidth="2"
-                                                    fill="none"
-                                                />
-                                            </svg>
+                                                <CheckCircle className="w-3 h-3 text-white" />
+                                            </span>
                                             {item}
                                         </li>
                                     ))}
