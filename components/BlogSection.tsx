@@ -20,14 +20,6 @@ export default function BlogSection() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  const categories = [
-    "All",
-    "Business",
-    "Virtual Assistants",
-    "Management",
-    "Marketing",
-  ];
-
   useEffect(() => {
     const fetchBlogs = async () => {
       try {
@@ -72,59 +64,6 @@ export default function BlogSection() {
   return (
     <section className="section" style={{ background: "var(--background)" }}>
       <div className="container">
-        {/* Search and Filter Bar */}
-        <div className="max-w-4xl mx-auto mb-12">
-          <div className="flex flex-col md:flex-row gap-4 items-center justify-between">
-            {/* Search */}
-            <div className="relative w-full md:w-96">
-              <Search
-                className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5"
-                style={{ color: "var(--muted)" }}
-              />
-              <input
-                type="text"
-                placeholder="Search articles..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full pl-12 pr-4 py-3 rounded-xl border-2 transition-all focus:outline-none focus:border-[var(--secondary)]"
-                style={{
-                  background: "var(--card)",
-                  borderColor: "var(--border)",
-                  color: "var(--foreground)",
-                }}
-              />
-            </div>
-
-            {/* Category Filter */}
-            <div className="flex flex-wrap gap-2 justify-center">
-              {categories.map((category) => (
-                <button
-                  key={category}
-                  onClick={() => setSelectedCategory(category)}
-                  className="px-4 py-2 rounded-full text-sm font-medium transition-all"
-                  style={{
-                    background:
-                      selectedCategory === category
-                        ? "var(--secondary)"
-                        : "var(--card)",
-                    color:
-                      selectedCategory === category
-                        ? "white"
-                        : "var(--foreground-light)",
-                    border: `1px solid ${
-                      selectedCategory === category
-                        ? "var(--secondary)"
-                        : "var(--border)"
-                    }`,
-                  }}
-                >
-                  {category}
-                </button>
-              ))}
-            </div>
-          </div>
-        </div>
-
         {/* Loading State */}
         {loading && (
           <div className="flex justify-center items-center py-20">
@@ -194,9 +133,10 @@ export default function BlogSection() {
         {!loading && !error && filteredPosts.length > 0 && (
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {filteredPosts.map((post) => (
-              <article
+              <Link
                 key={post._id}
-                className="group rounded-2xl overflow-hidden transition-all duration-300 hover:shadow-xl hover:-translate-y-1"
+                href={`/blog/${post.slug}`}
+                className="group rounded-2xl overflow-hidden transition-all duration-300 hover:shadow-xl hover:-translate-y-1 cursor-pointer block"
                 style={{
                   background: "var(--card)",
                   border: "1px solid var(--border)",
@@ -266,16 +206,15 @@ export default function BlogSection() {
                     {post.title}
                   </h3>
 
-                  <Link
-                    href={`/blog/${post.slug}`}
+                  <span
                     className="inline-flex items-center gap-2 font-semibold text-sm transition-all group-hover:gap-3"
                     style={{ color: "var(--secondary)" }}
                   >
                     Read More
                     <ArrowRight className="w-4 h-4" />
-                  </Link>
+                  </span>
                 </div>
-              </article>
+              </Link>
             ))}
           </div>
         )}
