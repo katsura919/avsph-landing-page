@@ -10,7 +10,7 @@ export default function ChallengeSection() {
         {
             icon: <Users className="w-6 h-6" />,
             title: "Struggling to find reliable talent?",
-            description: "Access our pre-vetted pool of exceptional virtual assistants—only the top 1% make the cut.",
+            description: "Access our pre-vetted pool of exceptional virtual assistants.",
         },
         {
             icon: <DollarSign className="w-6 h-6" />,
@@ -92,7 +92,7 @@ export default function ChallengeSection() {
                                 <p className="text-white/80 mb-6">
                                     We take the burden off your shoulders. From talent sourcing to
                                     performance monitoring, we provide end-to-end staffing solutions
-                                    so you can focus on what matters—growing your business.
+                                    so you can focus on what matters.
                                 </p>
 
                                 <ul className="space-y-3 mb-8">

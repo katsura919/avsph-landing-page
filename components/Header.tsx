@@ -20,9 +20,6 @@ export default function Header() {
   const navLinks = [
     { href: "#home", label: "Home" },
     { href: "#services", label: "Services" },
-    { href: "#how-it-works", label: "How We Work" },
-    { href: "#why-us", label: "Why Choose Us" },
-    { href: "#testimonials", label: "Testimonials" },
     { href: "/blog", label: "Blogs" },
     { href: "/faqs", label: "FAQs" },
   ];
@@ -30,7 +27,7 @@ export default function Header() {
   return (
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled ? "glass shadow-md py-3" : "bg-transparent py-5"
+        isScrolled ? "bg-background shadow-md py-3" : "bg-transparent py-5"
       }`}
     >
       <div className="container flex items-center justify-between">
