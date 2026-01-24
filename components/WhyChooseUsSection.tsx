@@ -67,12 +67,6 @@ export default function WhyChooseUsSection() {
       description:
         "Premium assistance that fits your budget. Save up to 70% vs local hires.",
     },
-    {
-      icon: <Users className="w-6 h-6" />,
-      title: "Work Directly With Staff",
-      description:
-        "Seamless communication with your assigned VA for flawless collaboration.",
-    },
   ];
 
   return (
