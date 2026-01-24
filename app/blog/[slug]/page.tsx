@@ -144,7 +144,7 @@ export default function BlogPostPage() {
 
                   {/* Title */}
                   <h1
-                    className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6"
+                    className="text-4xl md:text-5xl lg:text-5xl font-bold mb-6"
                     style={{ color: "var(--primary)" }}
                   >
                     {blog.title}
@@ -153,7 +153,7 @@ export default function BlogPostPage() {
                   {/* Excerpt */}
                   {blog.excerpt && (
                     <p
-                      className="text-lg md:text-xl mb-8"
+                      className="text-sm md:text-lg"
                       style={{ color: "var(--foreground-light)" }}
                     >
                       {blog.excerpt}
