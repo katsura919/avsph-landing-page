@@ -54,7 +54,7 @@ export default function Header() {
               className="text-sm font-medium leading-tight"
               style={{ color: "var(--secondary)" }}
             >
-             VIRTUAL STAFF
+              VIRTUAL STAFF
             </span>
           </div>
         </Link>
@@ -83,7 +83,10 @@ export default function Header() {
             <Phone className="w-4 h-4" />
             +1 (318) 392-9582
           </Link>
-          <Link href="#contact" className="btn-primary">
+          <Link
+            href="https://calendly.com/advancedvirtualstaff/30min"
+            className="btn-primary"
+          >
             Book a Call
           </Link>
         </div>
