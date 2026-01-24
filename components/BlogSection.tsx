@@ -1,24 +1,24 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { Search, Calendar, Tag, ArrowRight, Clock } from "lucide-react";
-
-type BlogPost = {
-  id: string;
-  title: string;
-  excerpt: string;
-  date: string;
-  category: string;
-  image: string;
-  slug: string;
-  readTime: string;
-};
+import {
+  Search,
+  Calendar,
+  Tag,
+  ArrowRight,
+  Clock,
+  Loader2,
+} from "lucide-react";
+import { getPublicBlogs, type PublicBlog } from "@/api/blogs.api";
 
 export default function BlogSection() {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("All");
+  const [blogs, setBlogs] = useState<PublicBlog[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   const categories = [
     "All",
@@ -28,150 +28,42 @@ export default function BlogSection() {
     "Marketing",
   ];
 
-  const blogPosts: BlogPost[] = [
-    {
-      id: "1",
-      title:
-        "The Strategic Advantage of Hiring Virtual Assistants for Your Business",
-      excerpt:
-        "Virtual assistants (VAs) have long been known for handling administrative tasks such as email management, scheduling, and data entry. However, their role has evolved significantly...",
-      date: "Apr 25, 2025",
-      category: "Business",
-      image: "/assets/blog/strategic-advantage.png",
-      slug: "strategic-advantage-hiring-virtual-assistants",
-      readTime: "5 min read",
-    },
-    {
-      id: "2",
-      title: "Scale Faster with Virtual Assistants",
-      excerpt:
-        "Growing a business is an exciting yet challenging journey. Entrepreneurs and business owners often find themselves stretched thin, managing daily operations while trying to expand...",
-      date: "Mar 25, 2025",
-      category: "Virtual Assistants",
-      image: "/assets/blog/scale-faster.png",
-      slug: "scaling-made-simple-virtual-assistants",
-      readTime: "4 min read",
-    },
-    {
-      id: "3",
-      title:
-        "The Strategic Advantage of Using Virtual Assistants in Your Business",
-      excerpt:
-        "For many business owners, virtual assistants (VAs) are often associated with administrative tasks like email management and scheduling. However, their potential extends far beyond...",
-      date: "Feb 25, 2025",
-      category: "Business",
-      image: "/assets/blog/strategic-va.png",
-      slug: "beyond-admin-tasks-virtual-assistants",
-      readTime: "6 min read",
-    },
-    {
-      id: "4",
-      title: "How Virtual Assistants Drive Entrepreneurial Growth",
-      excerpt:
-        "Time is the most valuable asset for entrepreneurs. While scaling a business, many smart entrepreneurs quickly realize they can't do everything themselves...",
-      date: "Jan 25, 2025",
-      category: "Business",
-      image: "/assets/blog/entrepreneurial-growth.jpg",
-      slug: "virtual-assistants-entrepreneurial-growth",
-      readTime: "5 min read",
-    },
-    {
-      id: "5",
-      title:
-        "Virtual Assistants for Entrepreneurs: Unlock Your Time, Maximize Your Results",
-      excerpt:
-        "In the entrepreneurial world, time is one of the most valuable resources. Every minute spent on mundane tasks is a minute taken away from strategic thinking...",
-      date: "Dec 20, 2024",
-      category: "Virtual Assistants",
-      image: "/assets/blog/unlock-time.png",
-      slug: "virtual-assistants-entrepreneurs-unlock-time",
-      readTime: "4 min read",
-    },
-    {
-      id: "6",
-      title:
-        "Driving Success: The Role of Virtual Assistants in Efficiency and Innovation",
-      excerpt:
-        "In today's fast-paced business world, staying ahead of the competition requires more than just hard work—it demands innovation, agility, and strategic delegation...",
-      date: "Dec 19, 2024",
-      category: "Virtual Assistants",
-      image: "/assets/blog/driving-success.jpg",
-      slug: "virtual-assistants-efficiency-innovation",
-      readTime: "5 min read",
-    },
-    {
-      id: "7",
-      title: "How Virtual Assistants Boost Efficiency and Innovation",
-      excerpt:
-        "In today's fast-paced business environment, staying ahead requires more than just hard work—it demands strategic delegation and efficient workflows...",
-      date: "Dec 17, 2024",
-      category: "Virtual Assistants",
-      image: "/assets/blog/boost-efficiency.png",
-      slug: "virtual-assistants-boost-efficiency",
-      readTime: "4 min read",
-    },
-    {
-      id: "8",
-      title: "The Secret to Business Growth: Virtual Assistants",
-      excerpt:
-        "In the ever-evolving world of business, scalability is the cornerstone of success. Whether you're an entrepreneur managing a startup or a seasoned executive...",
-      date: "Dec 16, 2024",
-      category: "Business",
-      image: "/assets/blog/business-growth.jpg",
-      slug: "secret-business-growth-virtual-assistants",
-      readTime: "5 min read",
-    },
-    {
-      id: "9",
-      title: "Virtual Assistants: Your Partner in Business Growth",
-      excerpt:
-        "In the fast-paced world of entrepreneurship and business management, time is one of your most valuable assets. Every moment spent on routine tasks...",
-      date: "Dec 11, 2024",
-      category: "Business",
-      image: "/assets/blog/partner-growth.jpg",
-      slug: "virtual-assistants-partner-business-growth",
-      readTime: "4 min read",
-    },
-    {
-      id: "10",
-      title: "Work-Life Balance with a Virtual Assistant",
-      excerpt:
-        "In today's fast-paced world, managing both professional and personal responsibilities can feel like walking a tightrope. For entrepreneurs and business owners...",
-      date: "Dec 10, 2024",
-      category: "Management",
-      image: "/assets/blog/work-life-balance.jpg",
-      slug: "work-life-balance-virtual-assistant",
-      readTime: "5 min read",
-    },
-    {
-      id: "11",
-      title: "Elevate Your Business with Virtual Assistant Expertise",
-      excerpt:
-        "Discover how leveraging virtual assistant expertise can transform your business operations and drive unprecedented growth in today's competitive market...",
-      date: "Dec 28, 2023",
-      category: "Business",
-      image: "/assets/blog/elevate-business.jpg",
-      slug: "elevate-business-virtual-assistant",
-      readTime: "5 min read",
-    },
-    {
-      id: "12",
-      title: "Hiring a Virtual Staff: Top Skills to Look for Your VA",
-      excerpt:
-        "Finding the right virtual assistant requires knowing what skills to prioritize. Learn the essential qualities that make a VA invaluable to your team...",
-      date: "Jul 7, 2023",
-      category: "Virtual Assistants",
-      image: "/assets/blog/hiring-skills.jpg",
-      slug: "hiring-virtual-staff-top-skills",
-      readTime: "6 min read",
-    },
-  ];
+  useEffect(() => {
+    const fetchBlogs = async () => {
+      try {
+        setLoading(true);
+        setError(null);
+        const response = await getPublicBlogs({
+          businessId: process.env.NEXT_PUBLIC_BUSINESS_ID,
+          limit: 50,
+        });
+        setBlogs(response.data);
+      } catch (err) {
+        console.error("Failed to fetch blogs:", err);
+        setError("Failed to load blogs. Please try again later.");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchBlogs();
+  }, []);
+
+  // Format date helper
+  const formatDate = (dateString: string) => {
+    const date = new Date(dateString);
+    return date.toLocaleDateString("en-US", {
+      month: "short",
+      day: "numeric",
+      year: "numeric",
+    });
+  };
 
   // Filter posts based on search and category
-  const filteredPosts = blogPosts.filter((post) => {
-    const matchesSearch =
-      post.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      post.excerpt.toLowerCase().includes(searchQuery.toLowerCase());
+  const filteredPosts = blogs.filter((post) => {
+    const matchesSearch = post.title
+      .toLowerCase()
+      .includes(searchQuery.toLowerCase());
     const matchesCategory =
       selectedCategory === "All" || post.category === selectedCategory;
     return matchesSearch && matchesCategory;
@@ -233,19 +125,49 @@ export default function BlogSection() {
           </div>
         </div>
 
-        {/* Results Count */}
-        <div className="mb-8">
-          <p
-            className="text-center"
-            style={{ color: "var(--foreground-light)" }}
+        {/* Loading State */}
+        {loading && (
+          <div className="flex justify-center items-center py-20">
+            <Loader2
+              className="w-10 h-10 animate-spin"
+              style={{ color: "var(--secondary)" }}
+            />
+          </div>
+        )}
+
+        {/* Error State */}
+        {error && !loading && (
+          <div
+            className="text-center py-16 px-6 rounded-2xl max-w-2xl mx-auto"
+            style={{
+              background: "var(--card)",
+              border: "1px solid var(--border)",
+            }}
           >
-            Showing {filteredPosts.length} article
-            {filteredPosts.length !== 1 ? "s" : ""}
-          </p>
-        </div>
+            <h3
+              className="text-xl font-semibold mb-2"
+              style={{ color: "var(--primary)" }}
+            >
+              {error}
+            </h3>
+          </div>
+        )}
+
+        {/* Results Count */}
+        {!loading && !error && (
+          <div className="mb-8">
+            <p
+              className="text-center"
+              style={{ color: "var(--foreground-light)" }}
+            >
+              Showing {filteredPosts.length} article
+              {filteredPosts.length !== 1 ? "s" : ""}
+            </p>
+          </div>
+        )}
 
         {/* Blog Grid */}
-        {filteredPosts.length === 0 ? (
+        {!loading && !error && filteredPosts.length === 0 && (
           <div
             className="text-center py-16 px-6 rounded-2xl max-w-2xl mx-auto"
             style={{
@@ -267,11 +189,13 @@ export default function BlogSection() {
               Try adjusting your search or category filter
             </p>
           </div>
-        ) : (
+        )}
+
+        {!loading && !error && filteredPosts.length > 0 && (
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {filteredPosts.map((post) => (
               <article
-                key={post.id}
+                key={post._id}
                 className="group rounded-2xl overflow-hidden transition-all duration-300 hover:shadow-xl hover:-translate-y-1"
                 style={{
                   background: "var(--card)",
@@ -280,29 +204,44 @@ export default function BlogSection() {
               >
                 {/* Image */}
                 <div className="relative h-52 overflow-hidden">
-                  <div
-                    className="absolute inset-0"
-                    style={{
-                      background:
-                        "linear-gradient(135deg, var(--primary) 0%, var(--secondary-dark) 100%)",
-                    }}
-                  />
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <span className="text-white/50 text-sm">Blog Image</span>
-                  </div>
+                  {post.featuredImage ? (
+                    <Image
+                      src={post.featuredImage}
+                      alt={post.title}
+                      fill
+                      className="object-cover transition-transform duration-300 group-hover:scale-105"
+                    />
+                  ) : (
+                    <>
+                      <div
+                        className="absolute inset-0"
+                        style={{
+                          background:
+                            "linear-gradient(135deg, var(--primary) 0%, var(--secondary-dark) 100%)",
+                        }}
+                      />
+                      <div className="absolute inset-0 flex items-center justify-center">
+                        <span className="text-white/50 text-sm">
+                          Blog Image
+                        </span>
+                      </div>
+                    </>
+                  )}
                   {/* Category Badge */}
-                  <div className="absolute top-4 left-4">
-                    <span
-                      className="inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-semibold"
-                      style={{
-                        background: "var(--secondary)",
-                        color: "white",
-                      }}
-                    >
-                      <Tag className="w-3 h-3" />
-                      {post.category}
-                    </span>
-                  </div>
+                  {post.category && (
+                    <div className="absolute top-4 left-4">
+                      <span
+                        className="inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-semibold"
+                        style={{
+                          background: "var(--secondary)",
+                          color: "white",
+                        }}
+                      >
+                        <Tag className="w-3 h-3" />
+                        {post.category}
+                      </span>
+                    </div>
+                  )}
                   {/* Date Badge */}
                   <div className="absolute top-4 right-4">
                     <span
@@ -313,34 +252,19 @@ export default function BlogSection() {
                       }}
                     >
                       <Calendar className="w-3 h-3" />
-                      {post.date}
+                      {formatDate(post.createdAt)}
                     </span>
                   </div>
                 </div>
 
                 {/* Content */}
                 <div className="p-6">
-                  <div
-                    className="flex items-center gap-2 text-xs mb-3"
-                    style={{ color: "var(--muted)" }}
-                  >
-                    <Clock className="w-3 h-3" />
-                    <span>{post.readTime}</span>
-                  </div>
-
                   <h3
                     className="text-lg font-bold mb-3 line-clamp-2 group-hover:text-[var(--secondary)] transition-colors"
                     style={{ color: "var(--primary)" }}
                   >
                     {post.title}
                   </h3>
-
-                  <p
-                    className="text-sm mb-4 line-clamp-3"
-                    style={{ color: "var(--foreground-light)" }}
-                  >
-                    {post.excerpt}
-                  </p>
 
                   <Link
                     href={`/blog/${post.slug}`}
