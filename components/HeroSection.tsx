@@ -176,6 +176,24 @@ export default function HeroSection() {
                 </div>
               </div>
             </div>
+            
+                                        {/* Floating Elements */}
+                            <div
+                                className="absolute top-4 right-4 glass rounded-lg px-4 py-2 animate-float"
+                                style={{ animationDelay: "0.5s" }}
+                            >
+                                <span className="text-sm font-medium" style={{ color: "var(--primary)" }}>
+                                    ✓ 24/7 Support
+                                </span>
+                            </div>
+                            <div
+                                className="absolute bottom-4 left-4 glass rounded-lg px-4 py-2 animate-float"
+                                style={{ animationDelay: "1s" }}
+                            >
+                                <span className="text-sm font-medium" style={{ color: "var(--primary)" }}>
+                                    ✓ Cancel Anytime
+                                </span>
+                            </div>
 
             {/* Decorative background element */}
             <div

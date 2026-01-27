@@ -100,7 +100,7 @@ export default function ChallengeSection() {
                                         "Rigorous vetting process",
                                         "Perfect talent matching",
                                         "Ongoing support & monitoring",
-                                        "Flexible, no-contract arrangements",
+                                        "No lock-in contract arrangements",
                                     ].map((item, index) => (
                                         <li key={index} className="flex items-center gap-3 text-white/90">
                                             <span
