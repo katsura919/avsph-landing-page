@@ -129,7 +129,6 @@ const pricingCards = [
       "30+ directory & citation submissions",
       "GHL CRM — 5 workflows configured (valued $97/mo)",
       "Klicktiv financial system (valued $79/mo)",
-      "Missed call text-back in under 60 seconds",
       "5 website edits/mo, completed in 48 hrs",
       "Monthly SEO rank report",
       "Dedicated AVS account manager",
