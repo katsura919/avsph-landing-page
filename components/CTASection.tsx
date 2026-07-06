@@ -9,6 +9,7 @@ export default function CTASection() {
     lastName: "",
     email: "",
     company: "",
+    hp: "",
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -30,21 +31,6 @@ export default function CTASection() {
 
       if (!response.ok) {
         console.error("Error response:", result);
-
-        // Handle duplicate contact error
-        if (result.error === "duplicate") {
-          // Show success state even for duplicates
-          setIsSubmitted(true);
-          // Reset form
-          setFormData({
-            firstName: "",
-            lastName: "",
-            email: "",
-            company: "",
-          });
-          return;
-        }
-
         throw new Error(result.error || "Failed to create contact");
       }
 
@@ -57,6 +43,7 @@ export default function CTASection() {
         lastName: "",
         email: "",
         company: "",
+        hp: "",
       });
     } catch (error) {
       console.error("Error creating contact:", error);
@@ -161,6 +148,26 @@ export default function CTASection() {
             </p>
 
             <form onSubmit={handleSubmit} className="space-y-4">
+              {/* Honeypot field - hidden from real users, bots tend to fill it */}
+              <input
+                type="text"
+                name="hp"
+                tabIndex={-1}
+                autoComplete="off"
+                value={formData.hp}
+                onChange={(e) =>
+                  setFormData({ ...formData, hp: e.target.value })
+                }
+                style={{
+                  position: "absolute",
+                  left: "-9999px",
+                  width: "1px",
+                  height: "1px",
+                  opacity: 0,
+                }}
+                aria-hidden="true"
+              />
+
               <div className="grid grid-cols-2 gap-4">
                 <div>
                   <label
